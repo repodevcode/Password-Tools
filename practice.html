@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ManaPassword - Practice</title>
+    <title>Password Tool - practice quiz, identify scammer emails</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     <p id="question"></p>
     <br>
     <br>
-    <button onclick="answered(this)" id="yes">Scam</button><button onclick="answered(this)" id="no">Not Scam</button>
+    <button onclick="answered(this)" id="1">Scam</button><button onclick="answered(this)" id="2">Not Scam</button>
 </body>
 <style>
     body{
@@ -29,40 +29,49 @@
 <script>
     var letters = "abcdefghijklmnopqrstuvwxyz23468"
     var random_numbers_cycles =  ["8","9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
-
+    var realEmailList = ["me@yahoo.com", "person@google.com", "help@openai.com"]
+    var correctAns
     function onStartup(){
         let randNum = Math.floor(Math.random() * 2) + 1;
-        let fakeEmail = ""
-        let randCycle = random_numbers_cycles[Math.floor(Math.random()*random_numbers_cycles.length)]
-        randCycle = parseInt(randCycle)
-        // if (randNum == 1){
-        console.log(fakeEmail)
-        console.log(document.getElementById("question"))
-        console.log(randCycle)
-        for (let i = 0; i == randCycle; i++) {
-            fakeEmail = String(fakeEmail)
-            fakeEmail = fakeEmail + letters[Math.floor(Math.random()*letters.length)]
+        if(randNum ==1){
+            let fakeEmail = ""
+            let randCycle = random_numbers_cycles[Math.floor(Math.random()*random_numbers_cycles.length)]
+            randCycle = parseInt(randCycle)
+            // if (randNum == 1){
             console.log(fakeEmail)
+            console.log(document.getElementById("question"))
             console.log(randCycle)
-            console.log(555)
-        }   
-        fakeEmailEnding = letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)];
+            for (let i = 0; i == randCycle; i++) {
+                fakeEmail = String(fakeEmail)
+                fakeEmail = fakeEmail + letters[Math.floor(Math.random()*letters.length)]
+                console.log(fakeEmail)
+                console.log(randCycle)
+                console.log(555)
+            }
+            fakeEmailEnding = letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)]+letters[Math.floor(Math.random()*letters.length)];
 
-        fakeEmail = String(fakeEmail)+"@"+String(fakeEmailEnding)
-        document.getElementById("question").innerHTML = String(fakeEmail)
-        // }
-        // else{
-        //     alert("hi")
-        // }
-
+            fakeEmail = String(fakeEmail)+"@"+String(fakeEmailEnding)
+            document.getElementById("question").innerHTML = String(fakeEmail)
+            correctAns = 1
+            // }
+            // else{
+            //     alert("hi")
+            // }
+        }
+        else{
+            realEmail = realEmailList[Math.floor(Math.random() * realEmailList.length)]
+            document.getElementById("question").innerHTML = String(realEmail)
+            correctAns = 2
+        }
     }
     function answered(el){
-        if(el.id == "yes"){
+        if(el.id == String(correctAns)){
             alert("Correct!")
         }
         else{
             alert("Incorrect.")
         }
+        onStartup()
     }
     onStartup()
 </script>
